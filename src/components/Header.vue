@@ -6,12 +6,14 @@
 
 <script>
   export default {
-    name: 'LetterBoard'
+    name: 'Header'
   }
 </script>
 
 <style lang="scss" scoped>
   #header {
+    position: absolute;
+    width: 100%;
     background-color: #493843;
     color: #FFFDED;
     height: 60px;
