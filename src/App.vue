@@ -1,17 +1,11 @@
 <template>
-  <div id="app">
-    <LetterBoard />
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import LetterBoard from './components/LetterBoard.vue'
 
 export default {
-  name: 'App',
-  components: {
-    LetterBoard
-  }
+  name: 'App'
 }
 </script>
 

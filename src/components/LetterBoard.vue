@@ -1,5 +1,5 @@
 <template>
-  <div id="background">
+  <div id="background" data-app>
     <div id="letter-board">
       <div id="board-area">
         <draggable 
@@ -44,6 +44,7 @@
           icon="share-square"
           title="Share"
           class="btn"
+          @click="showShare = true"
         />
       </div>
       <div id="letters-area">
@@ -73,6 +74,35 @@
         </draggable>
       </div>
     </div>
+
+    <v-dialog 
+      v-model="showShare" 
+      max-width="700px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">Share Your Word Board</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-btn
+                elevation="2" icon tile 
+                class="copy-btn"
+                @click="copyURL"
+              >
+                <font-awesome-icon icon="copy" title="Copy URL" />
+              </v-btn>
+              <v-text-field
+                label="URL"
+                :value="sharedURL"
+                :disabled="true"
+              ></v-text-field>
+            </v-row>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -95,7 +125,13 @@
           width: 0,
           height: 0
         },
-        dragging: false
+        dragging: false,
+        showShare: false
+      }
+    },
+    computed: {
+      sharedURL() {
+        return `https://schwamman.com?wordboard=${btoa(JSON.stringify(this.lettersMatrix))}`
       }
     },
     methods: {
@@ -116,6 +152,9 @@
       },
       saveBoard() {
         localStorage.wordBoard = JSON.stringify(this.lettersMatrix);
+      },
+      copyURL() {
+        navigator.clipboard.writeText(this.sharedURL);
       },
       handleResize() {
         this.window.width = window.innerWidth;
@@ -138,7 +177,10 @@
       this.handleResize();
     },
     mounted() {
-      if (localStorage.wordBoard) {
+      console.log(this.$route);
+      if (this.$route.query.wordBoard) {
+        this.lettersMatrix = JSON.parse(atob(this.$route.query.wordBoard));
+      } else if (localStorage.wordBoard) {
         console.log(localStorage.wordBoard);
         this.lettersMatrix = JSON.parse(localStorage.wordBoard);
       } else {
@@ -160,8 +202,8 @@
   #background {
     background-image: url(../assets/top_down_desk_optimized.jpg);
     background-size: cover;
-    height: calc(100% - 60px);
-    width: calc(100% - 60px);
+    height: calc(100%);
+    width: calc(100%);
     padding: 30px 30px 30px 30px;
 
     display: grid;
@@ -307,6 +349,15 @@
                  0 5px 10px rgba(0,0,0,.125),
                  0 10px 10px rgba(0,0,0,.1),
                  0 20px 20px rgba(0,0,0,.075);
+  }
+
+  .copy-btn {
+    margin-top: 14px;
+    margin-right: 15px;
+
+    svg {
+      font-size: 22px;
+    }
   }
 
   @media screen and (max-height: 888px){
