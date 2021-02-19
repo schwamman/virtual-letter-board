@@ -30,15 +30,20 @@
       <div id="buttons">
         <font-awesome-icon 
           icon="save" 
-          class="btn save-btn" 
+          class="btn" 
           title="Save Locally"
           @click="saveBoard"
         />
         <font-awesome-icon 
           icon="eraser" 
-          class="btn erase-btn"
+          class="btn"
           title="Clear Board"
           @click="eraseBoard"
+        />
+        <font-awesome-icon
+          icon="share-square"
+          title="Share"
+          class="btn"
         />
       </div>
       <div id="letters-area">
