@@ -31,11 +31,13 @@
         <font-awesome-icon 
           icon="save" 
           class="btn save-btn" 
+          title="Save Locally"
           @click="saveBoard"
         />
         <font-awesome-icon 
           icon="eraser" 
           class="btn erase-btn"
+          title="Clear Board"
           @click="eraseBoard"
         />
       </div>
@@ -93,10 +95,10 @@
     },
     methods: {
       startDrag() {
-        this.dragging = true
+        this.dragging = true;
       },
       endDrag() {
-        this.dragging = false
+        this.dragging = false;
       },
       eraseBoard() {
         let newMatrix = []
@@ -104,6 +106,8 @@
           newMatrix.push([]);
         })
         this.lettersMatrix = newMatrix;
+
+        localStorage.removeItem('wordBoard');
       },
       saveBoard() {
         localStorage.wordBoard = JSON.stringify(this.lettersMatrix);
@@ -132,12 +136,15 @@
       if (localStorage.wordBoard) {
         console.log(localStorage.wordBoard);
         this.lettersMatrix = JSON.parse(localStorage.wordBoard);
+      } else {
+        const line1 = [ ["P"],["D"],[],["W"],["O"],["R"],["D"] ];
+        const line2 = [ ["B"],["O"],["A"],["R"],["D"],["!"] ];
+        const line1Start = this.window.height < 889 ? 55 : 76;
+        const line2Start = this.window.height < 889 ? 90 : 113;
+
+        this.lettersMatrix.splice(line1Start, line1.length, ...line1);
+        this.lettersMatrix.splice(line2Start, line2.length, ...line2);
       }
-      // let numLetterSlots = this.window.height < 889 ? 187 : 252;
-      // for (let i = 0; i < numLetterSlots; i++) {
-      //   // const randomLetterIdx = Math.floor(Math.random() * 29)
-      //   this.lettersMatrix.push([]);
-      // }
     }
   }
 </script>
