@@ -204,6 +204,7 @@
       margin-top: 400px;
       height: 200px;
       width: 70%;
+      vertical-align: bottom;
 
       .trash-icon {
         display: none;
@@ -216,6 +217,7 @@
 
       div {
         height: 100%;
+        text-align: center;
       }
     }
 
@@ -223,6 +225,7 @@
       display: inline-block;
       font-size: 48px;
       vertical-align: bottom;
+      margin-left: 20px;
 
       .btn {
         cursor: pointer;
@@ -316,7 +319,7 @@
       #trash-area {
         margin-top: 250px;
         height: 150px;
-        width: 40%;
+        width: 35%;
       }
 
       #letters-area {
