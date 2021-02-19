@@ -131,7 +131,7 @@
     },
     computed: {
       sharedURL() {
-        return `https://schwamman.com?wordboard=${btoa(JSON.stringify(this.lettersMatrix))}`
+        return `https://schwamman.com?wordBoard=${btoa(JSON.stringify(this.lettersMatrix))}`
       }
     },
     methods: {
